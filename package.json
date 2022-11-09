@@ -1,0 +1,24 @@
+{
+  "name": "iot_nodered_sequrity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedPanda6801/iot_nodeRED_sequrity.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedPanda6801/iot_nodeRED_sequrity/issues"
+  },
+  "homepage": "https://github.com/RedPanda6801/iot_nodeRED_sequrity#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-red": "^3.0.2"
+  }
+}
