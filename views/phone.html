@@ -10,15 +10,16 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>메타세콤</title>
 </head>
 <body>
-  <img style="width: 12vh; height:11vh; margin: 3vh;" src="/public/logo.png">
-  <div style="align-items: center; display: flex; justify-content: center; width: 100%; margin-top: 10vh;">
-    <div class="card" style="width: 18rem;">
+  <img style="width: 12vh; height:11vh; margin-left : 3vh;" src="/public/logo.png">
+  <div class="margin" style="align-items: center; display: flex; justify-content: center;">
+    <div class="card" style="width: 85vh;">
       <div class="center"><img style="width: 8vh; height:9vh; margin-top: 2%;" src="/public/logo2.png"></div>
       <h5 class="card-title center" style="margin-top: 2%;">메타세콤</h5>
-      <img class="card-img-top center" src="/public/new-path.jpg" onerror="this.src='/public/wait.gif'">
+      <img class="card-img-top center margin" src="/public/new-path.jpg" onerror="this.src='/public/wait.gif'">
       <div class="card-body center">
         <p class="card-text center"></p>
         <a id="truebtn" href="#" class="btn btn-primary center" style="margin-right: 1%;">출입 허용</a>
@@ -27,22 +28,29 @@
     </div>
   </div>
   <script>
-    import axios from 'axios'
-
     const trueBtn = document.querySelector("#truebtn");
     const falseBtn = document.querySelector("#falsebtn");
     trueBtn.addEventListener("click", async () => {
       try{
-        const sendOpenData = await axios.post(process.env.VUE_APP_URL + '/open' ,
+        const sendOpenData = await axios.post('http://192.168.0.122:8002/open' ,
         { "open": "true" }
         )
         console.log(sendOpenData);
+        alert("출입 허용되었습니다.")
       }catch(error){
         console.log(error);
       }
     });
-    falseBtn.addEventListener("click", () => {
-      console.log("hello");
+    falseBtn.addEventListener("click", async () => {
+      try{
+        const sendCloseData = await axios.post('http://192.168.0.122:8002/open' ,
+        { "open": "false" }
+        )
+        console.log(sendCloseData);
+        alert("출입 거부되었습니다.")
+      }catch(error){
+        console.log(error);
+      }
     });
   </script>
 </body>
@@ -51,5 +59,10 @@
     display: flex; 
     align-items: center;
     justify-content: center;
+  }
+
+  .margin {
+    width: 95%; 
+    margin: 0px 2.5% 0px 2.5%;
   }
 </style>
