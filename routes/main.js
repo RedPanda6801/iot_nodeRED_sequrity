@@ -13,24 +13,38 @@ router.get("/", async (req, res) => {
         if (!err) {
         }
       });
-      client.publish("btn", "close");
+      client.subscribe("open", function (err) {
+        if (err) console.log(err);
+      });
     });
     client.on("message", function (topic, message) {
       // message is Buffer
-      console.log(message);
-      fs.writeFileSync("uploads/new-path.jpg", message);
+      console.log(topic);
+      switch (topic) {
+        case "open":
+          console.log(message.toString());
+          break;
+        case "topic":
+          console.log("picture save");
+          fs.writeFileSync("public/new-path.jpg", message);
+          break;
+      }
     });
     return res.sendFile(path.join(__dirname, "../views/phone.html"));
   } catch (error) {
     console.log(error);
   }
 });
-// router.post("/btn", async (req, res) => {
-//   try {
-//     console.log(req.body);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+router.post("/open", async (req, res) => {
+  try {
+    const client = mqtt.connect("mqtt://192.168.0.122");
+    console.log(req.body);
+    const { open } = req.body;
+    client.publish("open", open);
+    return res.status(200).send("btn ok");
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;
