@@ -19,7 +19,7 @@
     <div class="card" style="width: 85vh;">
       <div class="center"><img style="width: 8vh; height:9vh; margin-top: 2%;" src="/public/logo2.png"></div>
       <h5 class="card-title center" style="margin-top: 2%;">메타세콤</h5>
-      <img class="card-img-top center margin" src="/public/new-path.jpg" onerror="this.src='/public/wait.gif'">
+      <img id="setImg" class="card-img-top center margin" src="" onerror="this.src='/public/wait.gif'" alt="">
       <div class="card-body center">
         <p class="card-text center"></p>
         <a id="truebtn" href="#" class="btn btn-primary center" style="margin-right: 1%;">출입 허용</a>
@@ -30,6 +30,21 @@
   <script>
     const trueBtn = document.querySelector("#truebtn");
     const falseBtn = document.querySelector("#falsebtn");
+    const setImg = document.querySelector("#setImg")
+    // const imgtag = document.getElementById("setImg");
+
+    // setInterval(() => {document.getElementById("setImg").src = "/public/new-path.jpg"}, 5000)
+    // // console.log(imgtag);
+    // // console.log(imgtag.src);
+    // // console.log(imgtag.currentSrc);
+    //   setInterval(()=>{
+    //     console.log(imgtag.src);
+    //     if(imgtag.src === "http://localhost:8002/public/new-path.jpg"){
+    //       location.reload();
+    //       clearInterval();
+    //     }
+    //   },3000);
+    setImg.addEventListener("click", () => {document.getElementById("setImg").src = "/public/new-path.jpg"})
     trueBtn.addEventListener("click", async () => {
       try{
         const sendOpenData = await axios.post('http://192.168.0.122:8002/open' ,
