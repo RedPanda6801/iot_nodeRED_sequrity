@@ -80,6 +80,10 @@
       </div>
     </div>
     <script>
+      const userId = localStorage.getItem("id");
+      if (!userId) {
+        window.location.href = "/";
+      }
       const trueBtn = document.querySelector("#truebtn");
       const falseBtn = document.querySelector("#falsebtn");
       const setImg = document.querySelector("#setImg");
@@ -89,8 +93,8 @@
       trueBtn.addEventListener("click", async () => {
         try {
           const sendOpenData = await axios.post(
-            "http://192.168.0.122:8002/open",
-            { open: "true" }
+            "http://192.168.0.122:8002/main/open",
+            { open: "true", userId }
           );
           console.log(sendOpenData);
           alert("출입 허용되었습니다.");
@@ -102,8 +106,8 @@
       falseBtn.addEventListener("click", async () => {
         try {
           const sendCloseData = await axios.post(
-            "http://192.168.0.122:8002/open",
-            { open: "false" }
+            "http://192.168.0.122:8002/main/open",
+            { open: "false", userId }
           );
           console.log(sendCloseData);
           alert("출입 거부되었습니다.");

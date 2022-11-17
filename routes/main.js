@@ -3,9 +3,11 @@ const path = require("path");
 const router = express.Router();
 const mqtt = require("mqtt");
 const fs = require("fs");
+const { User } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
+    console.log("hello");
     const client = mqtt.connect("mqtt://192.168.0.122");
     client.on("connect", function () {
       console.log("Connection Success");
@@ -38,7 +40,6 @@ router.get("/", async (req, res) => {
 router.post("/open", async (req, res) => {
   try {
     const client = mqtt.connect("mqtt://192.168.0.122");
-    console.log(req.body);
     const { open } = req.body;
     client.publish("open", open);
     return res.status(200).send("btn ok");
