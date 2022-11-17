@@ -73,6 +73,9 @@
       </form>
     </main>
     <script>
+      if (localStorage.getItem("id")) {
+        window.location.href = "/main";
+      }
       const form = document.getElementById("form");
       form.addEventListener("submit", async (e) => {
         try {
