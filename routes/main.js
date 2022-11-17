@@ -3,7 +3,6 @@ const path = require("path");
 const router = express.Router();
 const mqtt = require("mqtt");
 const fs = require("fs");
-const { User } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
