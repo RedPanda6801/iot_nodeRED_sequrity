@@ -28,7 +28,9 @@ router.get("/", async (req, res) => {
           break;
         case "topic":
           console.log("picture save");
-          fs.writeFileSync("public/new-path.jpg", message);
+          const buffer = message.toString("base64");
+          const picture = Buffer.from(buffer, "base64");
+          fs.writeFileSync("public/new-path.jpg", picture);
           break;
       }
     });
