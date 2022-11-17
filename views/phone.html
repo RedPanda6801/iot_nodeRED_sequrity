@@ -1,55 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header">
+  <head th:fragment="header">
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-
-  to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-
+  to-fit=no"
+    />
     <!-- Bootstrap CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
     <title>메타세콤</title>
-</head>
-<body>
-  <img style="width: 12vh; height:11vh; margin: 3vh;" src="/public/logo.png">
-  <div style="align-items: center; display: flex; justify-content: center; width: 100%; margin-top: 10vh;">
-    <div class="card" style="width: 18rem;">
-      <div class="center"><img style="width: 8vh; height:9vh; margin-top: 2%;" src="/public/logo2.png"></div>
-      <h5 class="card-title center" style="margin-top: 2%;">메타세콤</h5>
-      <img class="card-img-top center" src="/public/new-path.jpg" onerror="this.src='/public/wait.gif'">
-      <div class="card-body center">
-        <p class="card-text center"></p>
-        <a id="truebtn" href="#" class="btn btn-primary center" style="margin-right: 1%;">출입 허용</a>
-        <a id="falsebtn" href="#" class="btn btn-primary center" style="margin-left: 1%;">출입 거부</a>
+  </head>
+  <body>
+    <img
+      style="width: 12vh; height: 11vh; margin: 3vh"
+      src="/public/logo.png"
+    />
+    <div
+      style="
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10vh;
+      "
+    >
+      <div class="card" style="width: 18rem">
+        <div class="center">
+          <img
+            style="width: 8vh; height: 9vh; margin-top: 2%"
+            src="/public/logo2.png"
+          />
+        </div>
+        <h5 class="card-title center" style="margin-top: 2%">메타세콤</h5>
+        <img
+          class="card-img-top center"
+          src="/public/new-path.jpg"
+          onerror="this.src='/public/wait.gif'"
+        />
+        <div class="card-body center">
+          <p class="card-text center"></p>
+          <a
+            id="truebtn"
+            href="#"
+            class="btn btn-primary center"
+            style="margin-right: 1%"
+            >출입 허용</a
+          >
+          <a
+            id="falsebtn"
+            href="#"
+            class="btn btn-primary center"
+            style="margin-left: 1%"
+            >출입 거부</a
+          >
+        </div>
       </div>
     </div>
-  </div>
-  <script>
-    import axios from 'axios'
+    <script>
+      import axios from "axios";
 
-    const trueBtn = document.querySelector("#truebtn");
-    const falseBtn = document.querySelector("#falsebtn");
-    trueBtn.addEventListener("click", async () => {
-      try{
-        const sendOpenData = await axios.post(process.env.VUE_APP_URL + '/open' ,
-        { "open": "true" }
-        )
-        console.log(sendOpenData);
-      }catch(error){
-        console.log(error);
-      }
-    });
-    falseBtn.addEventListener("click", () => {
-      console.log("hello");
-    });
-  </script>
-</body>
-<style>
-  .center {
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-  }
-</style>
+      const trueBtn = document.querySelector("#truebtn");
+      const falseBtn = document.querySelector("#falsebtn");
+      trueBtn.addEventListener("click", async () => {
+        try {
+          const sendOpenData = await axios.post(
+            process.env.VUE_APP_URL + "/open",
+            { open: "true" }
+          );
+          console.log(sendOpenData);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+      falseBtn.addEventListener("click", () => {
+        console.log("hello");
+      });
+    </script>
+  </body>
+  <style>
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</html>
