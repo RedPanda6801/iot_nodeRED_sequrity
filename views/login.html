@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="#" />
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -82,7 +83,7 @@
           e.preventDefault();
           const userId = e.target.floatingInput.value;
           const password = e.target.floatingPassword.value;
-          const login = await axios.post("http://192.168.0.122:8002/auth", {
+          const login = await axios.post("http://localhost:8002/auth", {
             userId,
             password,
           });
@@ -91,6 +92,7 @@
             window.location.href = "/main";
           }
         } catch (error) {
+          console.log(error);
           if (error.response.status == 400) {
             alert("아이디 및 비밀번호를 다시 입력해 주세요");
           } else {
