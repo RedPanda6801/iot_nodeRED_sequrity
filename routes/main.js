@@ -19,7 +19,6 @@ router.get("/", async (req, res) => {
       });
     });
     client.on("message", function (topic, message) {
-      // message is Buffer
       console.log(topic);
       switch (topic) {
         case "open":
@@ -43,6 +42,10 @@ router.post("/open", async (req, res) => {
     const client = mqtt.connect("mqtt://192.168.0.122");
     const { open } = req.body;
     client.publish("open", open);
+    // setTimeout(() => {
+    //   console.log("hello");
+    //   client.publish("open", "false");
+    // }, 10000);
     return res.status(200).send("btn ok");
   } catch (error) {
     console.log(error);
