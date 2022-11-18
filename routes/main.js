@@ -6,13 +6,11 @@ const fs = require("fs");
 
 router.get("/", async (req, res) => {
   try {
-    console.log("hello");
     const client = mqtt.connect("mqtt://192.168.0.122");
     client.on("connect", function () {
       console.log("Connection Success");
       client.subscribe("topic", function (err) {
-        if (!err) {
-        }
+        if (err) console.log(err);
       });
       client.subscribe("open", function (err) {
         if (err) console.log(err);
