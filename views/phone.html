@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:fragment="header">
+    <link rel="shortcut icon" href="#" />
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -93,7 +94,7 @@
       trueBtn.addEventListener("click", async () => {
         try {
           const sendOpenData = await axios.post(
-            "http://192.168.0.122:8002/main/open",
+            "http://localhost:8002/main/open",
             { open: "true", userId }
           );
           console.log(sendOpenData);
@@ -106,7 +107,7 @@
       falseBtn.addEventListener("click", async () => {
         try {
           const sendCloseData = await axios.post(
-            "http://192.168.0.122:8002/main/open",
+            "http://localhost:8002/main/open",
             { open: "false", userId }
           );
           console.log(sendCloseData);
