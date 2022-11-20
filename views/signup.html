@@ -47,7 +47,7 @@
           width="72"
           height="57"
         />
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
         <div class="form-floating">
           <input
@@ -55,6 +55,7 @@
             class="form-control"
             id="floatingInput"
             placeholder="Please enter your ID"
+            required
           />
           <label for="floatingInput">Id</label>
         </div>
@@ -64,17 +65,44 @@
             class="form-control"
             id="floatingPassword"
             placeholder="Please enter your password"
+            required
           />
           <label for="floatingPassword">Password</label>
         </div>
-        <div style="display: flex;">
-        <button class="w-100 btn btn-lg btn-primary" type="submit" style="margin-right: 1%;">
-          Sign in
-        </button>
-        <button class="w-100 btn btn-lg btn-primary" type="button" onClick="location.href='http://localhost:5500/views/signup.html'">
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="ConfirmPassword"
+            placeholder="Please enter the entered password"
+            required
+          />
+          <label for="ConfirmPassword">Confirm Password</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="Name"
+            placeholder="Please enter your name"
+            required
+          />
+          <label for="Name">Name</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="number"
+            class="form-control"
+            id="PhoneNumber"
+            placeholder="ex)01099426866"
+            required
+            maxlength="11"
+          />
+          <label for="PhoneNumber">Phone Number</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">
           Sign up
         </button>
-      </div>
         <p class="mt-5 mb-3 text-muted">&copy;by 박태환, 박승규, 이상훈</p>
       </form>
     </main>
@@ -88,14 +116,28 @@
           e.preventDefault();
           const userId = e.target.floatingInput.value;
           const password = e.target.floatingPassword.value;
-          const login = await axios.post("http://localhost:8002/auth", {
-            userId,
-            password,
-          });
-          if (login) {
-            localStorage.setItem("id", userId);
-            window.location.href = "/main";
+          const ConfirmPassword = e.target.ConfirmPassword;
+          const name = e.target.Name.value;
+          const PhoneNumber = e.target.PhoneNumber.value;
+          console.log(password);
+          console.log(ConfirmPassword.value);
+          function validatePassword(){
+            if(password !== ConfirmPassword.value) {
+              ConfirmPassword.setCustomValidity("Passwords Don't Match")
+            } else {
+              ConfirmPassword.setCustomValidity('')
+            }
           }
+          // if (password !== ConfirmPassword) {
+          //   alert("입력한 비밀번호가 일치하지 않습니다")
+          // }
+          // const signup = await axios.post("http://localhost:8002/auth", {
+          //   userId,
+          //   password,
+          //   name,
+          //   PhoneNumber,
+          // });
+          console.log(validatePassword());
         } catch (error) {
           console.log(error);
           if (error.response.status == 400) {
