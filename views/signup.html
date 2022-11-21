@@ -55,7 +55,7 @@
             type="text"
             class="form-control"
             id="floatingInput"
-            placeholder="Please enter your ID"
+            placeholder="아이디를 입력해 주세요"
             required
           />
         </div>
@@ -65,7 +65,7 @@
             type="password"
             class="form-control"
             id="floatingPassword"
-            placeholder="Please enter your password"
+            placeholder="6자 이상 비밀번호를 입력해 주세요"
             required
           />
         </div>
@@ -75,7 +75,7 @@
             type="password"
             class="form-control"
             id="ConfirmPassword"
-            placeholder="Please enter the entered password"
+            placeholder="비밀번호를 한번 더 입력해 주세요"
             required
           />
         </div>
@@ -85,8 +85,9 @@
             type="text"
             class="form-control"
             id="Name"
-            placeholder="Please enter your name"
+            placeholder="2자 이상 한글만 입력해주세요"
             required
+            pattern="^[ㄱ-ㅎ|가-힣]+$"
           />
         </div>
         <div class="form-floating">
@@ -97,13 +98,13 @@
             id="PhoneNumber"
             placeholder="ex)01099426866"
             required
-            maxlength="11"
           />
         </div>
         <button
           id="signupBtn"
           class="w-100 btn btn-lg btn-primary"
           type="submit"
+          onclick="formData()"
         >
           Sign up
         </button>
@@ -111,37 +112,62 @@
       </form>
     </main>
     <script>
+      function formData() {
+        let userIdd = document.getElementById("floatingInput")
+        let passwordd = document.getElementById("floatingPassword")
+        let ConfirmPasswordd = document.getElementById("ConfirmPassword")
+        let Namee = document.getElementById("Name")
+        let PhoneNumberr = document.getElementById("PhoneNumber")
+
+        if (passwordd.value.length < 6) {
+            passwordd.setCustomValidity("비밀번호는 6자 이상이어야 합니다")
+        } else {
+            passwordd.setCustomValidity("");
+        }
+        if (passwordd.value.length < 6) {
+            passwordd.setCustomValidity("비밀번호는 6자 이상이어야 합니다")
+        } else {
+            passwordd.setCustomValidity("");
+        }
+        if (passwordd.value !== ConfirmPasswordd.value) {
+          ConfirmPasswordd.setCustomValidity("패스워드가 일치하지 않습니다");
+        } else {
+          ConfirmPasswordd.setCustomValidity("");
+        }
+        if(Namee.value.length < 2){
+          Namee.setCustomValidity("이름은 두글자 이상이어야 합니다.")
+        } else {
+          Namee.setCustomValidity("");
+        }
+        if(PhoneNumberr.value.length !== 11){
+          PhoneNumberr.setCustomValidity("휴대번호는 -없이 11자리 숫자로 입력해 주세요 ex)01099426866")
+        } else {
+          PhoneNumberr.setCustomValidity("");
+        }
+      }
+      
       if (localStorage.getItem("id")) {
         window.location.href = "/main";
       }
+
       const form = document.getElementById("form");
       form.addEventListener("submit", async (e) => {
         try {
           e.preventDefault();
           const userId = e.target.floatingInput.value;
           const password = e.target.floatingPassword.value;
-          const ConfirmPassword = e.target.ConfirmPassword;
           const name = e.target.Name.value;
           const PhoneNumber = e.target.PhoneNumber.value;
-          console.log(password);
-          console.log(ConfirmPassword.value);
-          function validatePassword() {
-            if (password !== ConfirmPassword.value) {
-              ConfirmPassword.setCustomValidity("Passwords Don't Match");
-            } else {
-              ConfirmPassword.setCustomValidity("");
-            }
-          }
-          // if (password !== ConfirmPassword) {
-          //   alert("입력한 비밀번호가 일치하지 않습니다")
-          // }
-          // const signup = await axios.post("http://localhost:8002/auth", {
-          //   userId,
-          //   password,
-          //   name,
-          //   PhoneNumber,
-          // });
-          console.log(validatePassword());
+          const signup = await axios
+          .post("http://localhost:8002/sign/signup", {
+            id : userId,
+            password : password,
+            name : name,
+            phone : PhoneNumber,
+          })
+          .then(async (response)=> {
+            window.location.href = "/";
+          });
         } catch (error) {
           console.log(error);
           if (error.response.status == 400) {
