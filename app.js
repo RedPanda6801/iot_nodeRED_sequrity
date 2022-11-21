@@ -7,7 +7,8 @@ dotenv.config();
 
 // 라우팅
 const mainRouter = require("./routes/main");
-const authRouter = require("./routes/auth");
+const loginRouter = require("./routes/login");
+const signRouter = require("./routes/sign");
 const app = express();
 
 // 사용자 로그인을 위한 DB의 ORM
@@ -36,8 +37,8 @@ app.use(
 );
 // 라우터 미들웨어
 app.use("/main", mainRouter);
-app.use("/", authRouter);
-
+app.use("/", loginRouter);
+app.use("/sign", signRouter);
 // 404 처리 미들웨어
 app.use((req, res, next) => {
   if (res.statusCode !== 500) {
