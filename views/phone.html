@@ -81,8 +81,8 @@
       </div>
     </div>
     <script>
-      const userId = localStorage.getItem("id");
-      if (!userId) {
+      const token = localStorage.getItem("token");
+      if (!token) {
         window.location.href = "/";
       }
       const trueBtn = document.querySelector("#truebtn");
@@ -95,7 +95,12 @@
         try {
           const sendOpenData = await axios.post(
             "http://localhost:8002/main/open",
-            { open: "true", userId }
+            { open: "true" },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
           );
           console.log(sendOpenData);
           alert("출입 허용되었습니다.");
@@ -108,7 +113,12 @@
         try {
           const sendCloseData = await axios.post(
             "http://localhost:8002/main/open",
-            { open: "false", userId }
+            { open: "false" },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
           );
           console.log(sendCloseData);
           alert("출입 거부되었습니다.");

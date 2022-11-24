@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 
 // 초기화면. 로그인 페이지를 렌더링해주는 메소드
 exports.loginRender = async (req, res, next) => {
@@ -26,7 +27,7 @@ exports.loginRender = async (req, res, next) => {
 };
 
 // 로그인을 확인해주는 메소드
-exports.loginChecker = async (req, res) => {
+exports.loginChecker = async (req, res, next) => {
   try {
     // body로 아이디, 비밀번호를 받음
     const { userId, password } = req.body;
@@ -46,7 +47,7 @@ exports.loginChecker = async (req, res) => {
     if (checkout) {
       const token = jwt.sign(
         {
-          id,
+          id: userId,
         },
         process.env.JWT_SECRET,
         {
