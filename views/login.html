@@ -96,14 +96,23 @@
           e.preventDefault();
           const userId = e.target.floatingInput.value;
           const password = e.target.floatingPassword.value;
-          const login = await axios.post("http://localhost:8002/auth", {
+          const login = await axios
+          .post("http://localhost:8002/login", {
             userId,
             password,
-          });
-          if (login) {
-            localStorage.setItem("id", userId);
-            window.location.href = "/main";
-          }
+          })
+          .then(response => {
+            console.log("왜 안오냐 ",response.data);
+          })
+          .catch(error => {
+          console.log('login - error : ', error)
+          })
+          // if (login) {
+          //   console.log(login.data.token);
+          //   console.log("나와라라ㅏ");
+          //   // localStorage.setItem("id", userId);
+          //   // window.location.href = "/main";
+          // }
         } catch (error) {
           console.log(error);
           if (error.response.status == 400) {
