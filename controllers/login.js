@@ -44,8 +44,21 @@ exports.loginChecker = async (req, res) => {
     // 아이디가 있으면 해시화된 비밀번호를 비교
     const checkout = await bcrypt.compare(password, user.password);
     if (checkout) {
+      const token = jwt.sign(
+        {
+          id,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1440m", // 리프레시가 없을때 일단 이렇게 사용
+          issuer: "Meta Secom",
+        }
+      );
       console.log("logged in!");
-      return res.status(200).send("Response Success");
+      return res.status(200).json({
+        message: "Response Success",
+        token,
+      });
     } else {
       // 비밀번호가 다르면 에러처리
       console.error("Wrong Password");
