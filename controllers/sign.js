@@ -33,19 +33,8 @@ exports.signUp = async (req, res, next) => {
       name,
       ownerPhone: phone,
     });
-    const token = jwt.sign(
-      {
-        id,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1440m", // 리프레시가 없을때 일단 이렇게 사용
-        issuer: "Meta Secom",
-      }
-    );
     return res.status(200).json({
       message: "Create Success",
-      token,
     });
   } catch (error) {
     console.error(error);

@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 dotenv.config();
 
 // 라우팅
@@ -21,7 +22,7 @@ sequelize
   .catch((err) => {
     console.error(err);
   });
-
+app.use;
 // 서버 포트 번호 설정
 app.set("port", process.env.PORT || 8002);
 app.use(morgan("dev"));
@@ -30,6 +31,7 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 // json parsing 미들웨어
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   cors({
     credentials: true,
