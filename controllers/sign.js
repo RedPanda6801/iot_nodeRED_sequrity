@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 exports.signRender = async (req, res) => {
   try {
